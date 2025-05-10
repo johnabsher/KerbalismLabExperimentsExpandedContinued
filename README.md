@@ -49,7 +49,7 @@ Pretty much all these new experiments have some Crew and/or part requirements. T
 I don't play with DMagic or other science mods, so support for those is not included. However, if you want to add support, submit a PR updating `InstrumentTagging.cfg`. If it looks sensible, I will accept it.
 
 ### For Modders: 
-Experiments take configuration parameters defined [in the Kerbalism docs](https://kerbalism.readthedocs.io/en/latest/modders/modules.html#experiment). 
+Experiments take configuration parameters defined [in the Kerbalism docs](https://github.com/Kerbalism/Kerbalism/wiki/TechGuide-~-PartModules-~-Experiment). 
 
 Experiments are tagged in the `InstrumentTagging.cfg` - if you find a part that should be tagged and isn't, please submit a PR. That is also where you would add mod support.
 
