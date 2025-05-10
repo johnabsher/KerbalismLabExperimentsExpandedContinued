@@ -1,0 +1,93 @@
+EXPERIMENT_DEFINITION:NEEDS[FeatureScience]			// DMagic Orbital Science NEEDS[DMagicOrbitalScience,FeatureScience]. SCANsat NEEDS[SCANsat,FeatureScience], UniversalStorage2 NEEDS[UniversalStorage2,FeatureScience]
+{
+	id = kerbalism_TEST01							// Replace all with actual experiment short name throughout this file (leave the kerbalism_ part)
+	title = TEST01									// Replace all with actual experiment short name throughout this file
+	baseValue = 180
+	scienceCap = 180
+	dataScale = 1
+
+  KERBALISM_EXPERIMENT								// Configure what situations you will allow the experiment to be run in.
+	{												// Situation=SrfLanded, SrfSplashed, InSpaceLow, InSpaceHigh, FlyingLow, FlyingHigh, <Situation>@Biomes. BodyNotAllowed=Suns, HomeBody, HomeBodyAndMoons.
+	Situation = InSpaceLow							// BodyAllowed=Planets, Moons. SampleMass = 2052. See ScienceDefs-Kerbalism.cfg for examples.
+	BodyNotAllowed = Suns
+	}
+}
+
+@KERBALISM_GROUP_SETTINGS:NEEDS[FeatureScience]
+{
+	@LAB_EXPERIMENTS
+	{
+
+		TEST01
+		{
+			ECCost = 4.62							// Value in game is times 5 (kerbalism cfg does this)
+			size = 22568							// units in MB. Sample slot size is 1 per 1024 units.
+			value = 24								// Default science value
+			duration = 4320000						// 21,600 = 1 day. (x2 for JNSQ)
+			SetupMass = 3.55						// Mass in tons
+			SetupCost = 12800						// Cost added to part
+			UnlockTech = advExploration				// Must have this tech to unlock the experiment.
+			requirements = Greenhouse				// See https://readthedocs.org/projects/kerbalism/downloads/pdf/latest/ page 64 for an explanation of requirements. Ex: requirements = Part:dmscope.
+			CrewRequirement = Scientist:4			// Type of crew required. Blank is none required. True is any crew. Scientist is any scientist. Scientist:3 is a scientist with 3 stars (level 3).
+		}
+
+	}
+}
+
+@PART[*]:HAS[@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]]:NEEDS[FeatureScience]
+{
+//adding the experiment modules. The other parameters get added/overwritten later, thus it's pointless to add them here.
+	MODULE
+	{
+		name = Experiment
+		experiment_id = kerbalism_TEST01
+	}
+
+
+	@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]
+	{
+		SETUP
+		{
+			name = TEST01
+			desc = TEST01 Desc.						// Add experiment description
+			MODULE
+			{
+				type = Experiment
+				id_field = experiment_id
+				id_value = kerbalism_TEST01
+			}
+		}
+	}
+}
+	
+@PART[*]:HAS[@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]]:NEEDS[FeatureScience]:FOR[KerbalismDefault]
+{
+	@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]
+	{
+		@SETUP:HAS[#name[TEST01]]
+		{
+			%tech = #$../../@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/UnlockTech$
+			%mass = #$../../@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/SetupMass$
+			%cost = #$../../@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/SetupCost$
+		}
+	}
+	
+	@MODULE[Experiment]:HAS[#experiment_id[kerbalism_TEST01]]
+	{
+		%ec_rate = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/ECCost$
+		%crew_operate = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/CrewRequirement$
+		%requires = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/requirements$
+		%data_rate = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/size$
+		@data_rate /= #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/duration$
+		@data_rate /= #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/LabDataRateMultiplier$
+		// %resources = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/SALINE/ResourceRates$
+	}
+	
+}
+
+@EXPERIMENT_DEFINITION:HAS[#id[kerbalism_TEST01]]:NEEDS[FeatureScience]:FOR[zzzKerbalismDefault]
+{
+	@baseValue = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/value$
+	@dataScale = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/size$
+	@dataScale /= #$baseValue$
+}
