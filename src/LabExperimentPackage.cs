@@ -111,6 +111,14 @@ namespace KerbalismLabExperimentsExpandedContinued
         }
     }
 
+    public class GreenhouseLabExperimentPackage : BaseLabExperimentPackage
+    {
+        public override string GetPrettyName()
+        {
+            return "Greenhouse Lab Experiment Package";
+        }
+    }
+
     public class SpectrometerLabExperimentPackage : BaseLabExperimentPackage
     {
         public override string GetPrettyName()
