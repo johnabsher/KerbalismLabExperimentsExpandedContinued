@@ -40,8 +40,8 @@ Pretty much all these new experiments have some Crew and/or part requirements. T
 
 ### Mod Support
 
-- All of these experiments are accessible via stock parts.  
-- Any modded parts using the stock experiments should be tagged correctly.  
+- All of these experiments are accessible via stock parts or stock-derived fallback parts supplied by this mod.
+- Any modded parts using the stock experiments should be tagged correctly.
 - Additional support has been manually configured for:
   - **ScanSat**
   - **Nertea's Near Future** and **Far Future** parts  
@@ -55,3 +55,30 @@ Experiments are tagged in the `InstrumentTagging.cfg` - if you find a part that 
 
 The DLL is a very simple part module that does basically nothing - it just implements a `{type}LabExperimentPackage` which is then attached to relevant parts as needed. It also adds notes to the VAB so you can select appropriately.
 
+### Package Availability
+
+The stock patches attach package modules to matching science parts where possible. KLEEC also creates stock-derived fallback parts for package types that otherwise would not be guaranteed in a pure stock + Kerbalism install, including radio, high-energy, and greenhouse packages.
+
+Greenhouse lab experiments use `Module:GreenhouseLabExperimentPackage`. Existing Kerbalism greenhouse parts are tagged when present, and a stock Mystery Goo-derived greenhouse package is provided as a fallback.
+
+### Duration Tuning
+
+Experiment duration is controlled by each experiment's `duration` value and the global `LabDataRateMultiplier`. The default multiplier is `1`; setting it to `2` makes KLEEC lab experiments take twice as long, while `0.5` makes them finish in half the time.
+
+Example user patch:
+
+```cfg
+@KERBALISM_GROUP_SETTINGS:NEEDS[FeatureScience]:BEFORE[KerbalismLabExperimentsExpandedContinuedApply]
+{
+	@LAB_EXPERIMENTS
+	{
+		@LabDataRateMultiplier = 2
+	}
+}
+```
+
+Some orbital biome experiments are intentionally shorter because the vessel must pass over the target biome. The currently intentional short orbital-biome experiments are `CATS`, `CubeRRT`, `GEDI`, `ISSAC`, `ECOSTRESS`, `SPOC`, `TAPAR-1`, `BeaverCube`, and `SOCP-7`.
+
+### Testing
+
+After changing configs, launch KSP to the main menu and inspect the regenerated `GameData/ModuleManager.ConfigCache`. A healthy cache should show all 65 KLEEC experiments rendered, no `Part:*LabExperimentPackage` requirements, and at least one available part for every required package module.
