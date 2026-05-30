@@ -13,9 +13,9 @@ EXPERIMENT_DEFINITION:NEEDS[FeatureScience]			// DMagic Orbital Science NEEDS[DM
 	}
 }
 
-@KERBALISM_GROUP_SETTINGS:NEEDS[FeatureScience]
+%KERBALISM_GROUP_SETTINGS:NEEDS[FeatureScience]:FOR[KerbalismLabExperimentsExpandedContinued]
 {
-	@LAB_EXPERIMENTS
+	%LAB_EXPERIMENTS
 	{
 
 		TEST01
@@ -60,7 +60,7 @@ EXPERIMENT_DEFINITION:NEEDS[FeatureScience]			// DMagic Orbital Science NEEDS[DM
 	}
 }
 	
-@PART[*]:HAS[@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]]:NEEDS[FeatureScience]:FOR[KerbalismDefault]
+@PART[*]:HAS[@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]]:NEEDS[FeatureScience]:FOR[KerbalismLabExperimentsExpandedContinuedApply]
 {
 	@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]
 	{
@@ -85,7 +85,7 @@ EXPERIMENT_DEFINITION:NEEDS[FeatureScience]			// DMagic Orbital Science NEEDS[DM
 	
 }
 
-@EXPERIMENT_DEFINITION:HAS[#id[kerbalism_TEST01]]:NEEDS[FeatureScience]:FOR[zzzKerbalismDefault]
+@EXPERIMENT_DEFINITION:HAS[#id[kerbalism_TEST01]]:NEEDS[FeatureScience]:FOR[KerbalismLabExperimentsExpandedContinuedApply]
 {
 	@baseValue = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/value$
 	@dataScale = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/size$
