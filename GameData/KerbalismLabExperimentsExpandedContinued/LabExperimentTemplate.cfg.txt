@@ -27,7 +27,7 @@ EXPERIMENT_DEFINITION:NEEDS[FeatureScience]			// DMagic Orbital Science NEEDS[DM
 			SetupMass = 3.55						// Mass in tons
 			SetupCost = 12800						// Cost added to part
 			UnlockTech = advExploration				// Must have this tech to unlock the experiment.
-			requirements = Module:GreenhouseLabExperimentPackage	// See https://github.com/Kerbalism/Kerbalism/wiki/TechGuide-~-PartModules-~-Experiment for requirements. Ex: requirements = Module:RadioLabExperimentPackage.
+			requirements = Module:RadioLabExperimentPackage	// See https://github.com/Kerbalism/Kerbalism/wiki/TechGuide-~-PartModules-~-Experiment for requirements. Ex: requirements = Module:RadioLabExperimentPackage.
 			CrewRequirement = Scientist:4			// Type of crew required. Blank is none required. True is any crew. Scientist is any scientist. Scientist:3 is a scientist with 3 stars (level 3).
 		}
 
