@@ -13,7 +13,7 @@ EXPERIMENT_DEFINITION:NEEDS[FeatureScience]			// DMagic Orbital Science NEEDS[DM
 	}
 }
 
-@KERBALISM_GROUP_SETTINGS,*:NEEDS[FeatureScience]:FOR[KerbalismLabExperimentsExpandedContinued]
+@KERBALISM_GROUP_SETTINGS:NEEDS[FeatureScience]:FOR[KerbalismLabExperimentsExpandedContinued]
 {
 	%LAB_EXPERIMENTS
 	{
