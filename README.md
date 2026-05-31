@@ -63,6 +63,8 @@ The stock patches attach package modules to matching science parts where possibl
 
 Experiment duration is controlled by each experiment's `duration` value and the global `LabDataRateMultiplier`. The default multiplier is `1`; setting it to `2` makes KLEEC lab experiments take twice as long, while `0.5` makes them finish in half the time.
 
+KLEEC defines experiment settings in `:FOR[KerbalismLabExperimentsExpandedContinued]` and applies them to parts in `:LAST[KerbalismLabExperimentsExpandedContinued]`, so user tuning patches should run in `:AFTER[KerbalismLabExperimentsExpandedContinued]`.
+
 Example user patch:
 
 ```cfg
