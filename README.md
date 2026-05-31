@@ -63,12 +63,12 @@ The stock patches attach package modules to matching science parts where possibl
 
 Experiment duration is controlled by each experiment's `duration` value and the global `LabDataRateMultiplier`. The default multiplier is `1`; setting it to `2` makes KLEEC lab experiments take twice as long, while `0.5` makes them finish in half the time.
 
-KLEEC defines experiment settings in `:FOR[KerbalismLabExperimentsExpandedContinued]` and applies them to parts in `:BEFORE[zzzKerbalismDefault]`, before Kerbalism removes its temporary settings node. User tuning patches should run in `:AFTER[KerbalismLabExperimentsExpandedContinued]`.
+KLEEC stages ModuleManager patches as settings in `:BEFORE[KerbalismLabExperimentsExpandedContinued]`, lab setup and fallback part creation in `:FOR[KerbalismLabExperimentsExpandedContinued]`, and final value application in `:AFTER[KerbalismLabExperimentsExpandedContinued]`. This keeps final value copying before Kerbalism removes its temporary settings node. Global tuning patches can run in `:BEFORE[KerbalismLabExperimentsExpandedContinued]`.
 
 Example user patch:
 
 ```cfg
-@KERBALISM_GROUP_SETTINGS:NEEDS[FeatureScience]:AFTER[KerbalismLabExperimentsExpandedContinued]
+@KERBALISM_GROUP_SETTINGS:NEEDS[FeatureScience]:BEFORE[KerbalismLabExperimentsExpandedContinued]
 {
 	@LAB_EXPERIMENTS
 	{
