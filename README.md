@@ -57,7 +57,7 @@ The DLL is a very simple part module that does basically nothing - it just imple
 
 ### Package Availability
 
-The stock patches attach package modules to matching science parts where possible. KLEEC also creates stock-derived fallback parts for package types that otherwise would not be guaranteed in a pure stock + Kerbalism install, including radio and high-energy packages. Greenhouse experiments have no part requirement by default, but use Kerbalism's `Greenhouse` requirement when the Kerbalism Default profile is installed.
+The stock patches attach package modules to matching science parts where possible. KLEEC also creates stock-derived fallback parts for package types that otherwise would not be guaranteed in a pure stock + Kerbalism install, including radio and high-energy packages. Greenhouse experiments have no part requirement by default, but use Kerbalism's `Greenhouse` requirement when the Kerbalism Default profile is installed without Kerbalism Science-Only.
 
 ### Duration Tuning
 
