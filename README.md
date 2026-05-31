@@ -66,7 +66,7 @@ Experiment duration is controlled by each experiment's `duration` value and the 
 Example user patch:
 
 ```cfg
-@KERBALISM_GROUP_SETTINGS:NEEDS[FeatureScience]:BEFORE[KerbalismLabExperimentsExpandedContinuedApply]
+@KERBALISM_GROUP_SETTINGS:NEEDS[FeatureScience]:AFTER[KerbalismLabExperimentsExpandedContinued]
 {
 	@LAB_EXPERIMENTS
 	{
