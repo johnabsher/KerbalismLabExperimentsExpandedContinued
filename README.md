@@ -53,6 +53,30 @@ Pretty much all these new experiments have some Crew and/or part requirements. T
 
 I don't play with DMagic or other science mods, so support for those is not included. However, if you want to add support, submit a PR updating `InstrumentTagging.cfg`. If it looks sensible, I will accept it.
 
+### Required Parts
+
+Some experiments require a matching lab experiment package part. The current package support rules are:
+
+| Category | Rule | Stock / fallback | Kerbalism | SSPX | SpaceDust / FFT | SCANsat |
+| --- | --- | --- | --- | --- | --- | --- |
+| Atmosphere | Parts with Kerbalism's `atmosphereAnalysis` experiment qualify; SpaceDust gas analysis also qualifies. | <ul><li>Atmospheric Fluid Spectro-Variometer</li></ul> |  |  | <ul><li>SpaceDust: PT-SN1-FER Trace Gas Analyzer</li></ul> |  |
+| Biology | Parts with Kerbalism's `mysteryGoo` experiment qualify. | <ul><li>Mystery Goo Containment Unit</li></ul> | <ul><li>Mobile Processing Lab MPL-LG-2</li></ul> | <ul><li>SDV-X 'Cronus' Extensible Centrifuge</li><li>PMA-4 'Nature' Science Lab</li><li>PXL-2 'Fate' Deep-Space Laboratory Module</li><li>SDV-6 'Delphi' Science Module</li></ul> |  |  |
+| Drill | Parts with `Drill` in the part name or a resource harvester module qualify. | <ul><li>Drill-O-Matic Junior Mining Excavator</li><li>Drill-O-Matic Mining Excavator</li></ul> | <ul><li>Pump-O-Matic Junior Oceanic Resource Extractor</li><li>Pump-O-Matic Oceanic Resource Extractor</li></ul> |  |  |  |
+| Fluid | The atmospheric sensor is tagged for fluid experiments. | <ul><li>Atmospheric Fluid Spectro-Variometer</li></ul> |  |  |  |  |
+| Gravity | Parts with Kerbalism's `gravityScan` experiment qualify. | <ul><li>GRAVMAX Negative Gravioli Detector</li></ul> |  |  |  |  |
+| Greenhouse | Uses Kerbalism's `Greenhouse` requirement when the active profile provides greenhouse support; otherwise KLEEC greenhouse experiments have no part requirement. |  | <ul><li>Greenhouse</li></ul> | <ul><li>PAS-G 'G4RD3N' Hydroponics Cupola</li><li>PPD-F412M Hydroponics Module</li><li>PXL-R4NCH-3R Hydroponics Module</li><li>PXL-F15H Aquaculture Module</li><li>SDV-4 'Demeter' Cultivation Module</li><li>SDV-G2 'Villa' Cultivation Dome</li></ul> |  |  |
+| High Energy | FFT antimatter scanning qualifies when installed; KLEEC also supplies a guaranteed stock-derived fallback package. | <ul><li>High Energy Experiment Package</li></ul> |  |  | <ul><li>FFT: CRANE Gamma Ray Spectrometer</li></ul> |  |
+| Magnetometer | Parts with Kerbalism's `magnetometer` experiment qualify. | <ul><li>Magnetometer Boom</li></ul> |  |  |  |  |
+| Materials | Parts with Kerbalism's `mobileMaterialsLab` experiment qualify. | <ul><li>SC-9001 Science Jr.</li></ul> | <ul><li>Mobile Processing Lab MPL-LG-2</li></ul> | <ul><li>SDV-X 'Cronus' Extensible Centrifuge</li><li>PMA-4 'Nature' Science Lab</li><li>PXL-2 'Fate' Deep-Space Laboratory Module</li><li>SDV-6 'Delphi' Science Module</li></ul> |  |  |
+| Multispectral | Stock orbital resource scanning qualifies; SCANsat multispectral scanners also qualify. | <ul><li>M4435 Narrow-Band Scanner</li></ul> |  |  |  | <ul><li>MS-R Enhanced Multispectral Scanner</li><li>MS-1 Multispectral Scanner</li><li>MS-2A Advanced Multispectral Scanner</li></ul> |
+| Plasma | The stock survey scanner qualifies. | <ul><li>M700 Survey Scanner</li></ul> |  |  |  |  |
+| Radar | Stock survey scanning qualifies; SCANsat radar and SAR parts also qualify. | <ul><li>M700 Survey Scanner</li></ul> |  |  |  | <ul><li>R-3B Radar Altimeter</li><li>R-EO-1 Radar Antenna</li><li>SAR-X Antenna</li><li>SAR-C Antenna</li><li>SAR-L Antenna</li></ul> |
+| Radio | KLEEC supplies a guaranteed stock-derived radio telescope fallback. | <ul><li>RA-100T Radio Telescope</li></ul> |  |  |  |  |
+| Spectrometer | Stock narrow-band scanning qualifies; SCANsat resource scanners, FFT gas scanning, and SpaceDust spectrometry also qualify. | <ul><li>M4435 Narrow-Band Scanner</li></ul> |  |  | <ul><li>FFT: CHROMA Imaging Spectrometer</li><li>SpaceDust: PT-L00K-ER Spectrographic Gas Scanner</li></ul> | <ul><li>SCAN-R Resource Mapper</li><li>SCAN-RX Hyperspectral Resource Mapper</li><li>SCAN-R2 Advanced Resource Mapper</li></ul> |
+| Surface | Stock surface scanning qualifies. | <ul><li>Surface Scanning Module</li></ul> |  |  |  |  |
+| Telescope | Infrared telescope experiments qualify; SpaceDust telescopes also qualify. | <ul><li>SENTINEL Infrared Telescope</li></ul> |  |  | <ul><li>SpaceDust: PT-EDW1N Spectral Telescope</li></ul> |  |
+| Visual | Cupolas and visual observation experiments qualify; SCANsat recon imagers also qualify. | <ul><li>PPD-12 Cupola Module</li></ul> |  | <ul><li>PAS-C 'Porthole' Observation Window</li><li>PMA-C 'Panoptes' Observation Module</li><li>PXL-9 'Vista' Astrogation Module</li><li>SDV-G4 'Astrolabe' Observation Dome</li></ul> |  | <ul><li>VS-1 High Resolution Imager</li><li>VS-11 Classified Reconnaissance Imager</li><li>VS-3 Advanced High Resolution Imager</li></ul> |
+
 ### For Modders: 
 Experiments take configuration parameters defined [in the Kerbalism docs](https://github.com/Kerbalism/Kerbalism/wiki/TechGuide-~-PartModules-~-Experiment). 
 
