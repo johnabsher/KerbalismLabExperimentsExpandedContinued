@@ -107,3 +107,15 @@ Example user patch:
 ```
 
 Some orbital biome experiments are intentionally shorter because the vessel must pass over the target biome. The currently intentional short orbital-biome experiments are `CATS`, `CubeRRT`, `GEDI`, `ISSAC`, `ECOSTRESS`, `SPOC`, `TAPAR-1`, `BeaverCube`, and `SOCP-7`.
+
+If you want those short biome experiments to take twice as long, apply a patch like this in your own config. It runs in `:FINAL` so it adjusts the rendered Kerbalism experiment modules directly. Add the remaining short-biome experiment IDs to the `|` list as needed.
+
+```cfg
+@PART[*]:HAS[@MODULE[Experiment]]:FINAL
+{
+	@MODULE[Experiment]:HAS[#experiment_id[kerbalism_CATS|kerbalism_CubeRRT]]
+	{
+		@data_rate /= 2
+	}
+}
+```
