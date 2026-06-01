@@ -45,6 +45,11 @@ Pretty much all these new experiments have some Crew and/or part requirements. T
 - Additional support has been manually configured for:
   - **ScanSat**
   - **Nertea's Near Future** and **Far Future** parts  
+- The following Kerbalism configurations have been specifically tested and should work as intended:
+  - Kerbalism Default
+  - SIMPLEX Kerbalism
+  - Kerbalism Science-Only
+  - Kerbalism RO
 
 I don't play with DMagic or other science mods, so support for those is not included. However, if you want to add support, submit a PR updating `InstrumentTagging.cfg`. If it looks sensible, I will accept it.
 
@@ -78,7 +83,3 @@ Example user patch:
 ```
 
 Some orbital biome experiments are intentionally shorter because the vessel must pass over the target biome. The currently intentional short orbital-biome experiments are `CATS`, `CubeRRT`, `GEDI`, `ISSAC`, `ECOSTRESS`, `SPOC`, `TAPAR-1`, `BeaverCube`, and `SOCP-7`.
-
-### Testing
-
-After changing configs, launch KSP to the main menu and inspect the regenerated `GameData/ModuleManager.ConfigCache`. A healthy cache should show all 65 KLEEC experiments rendered, no `Part:*LabExperimentPackage` requirements, and at least one available part for every required package module.
