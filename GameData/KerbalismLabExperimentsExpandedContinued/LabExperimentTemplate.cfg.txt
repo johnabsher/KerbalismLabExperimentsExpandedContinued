@@ -13,9 +13,9 @@ EXPERIMENT_DEFINITION:NEEDS[FeatureScience]			// DMagic Orbital Science NEEDS[DM
 	}
 }
 
-@KERBALISM_GROUP_SETTINGS:NEEDS[FeatureScience]
+@KERBALISM_GROUP_SETTINGS:NEEDS[FeatureScience]:BEFORE[KerbalismLabExperimentsExpandedContinued]
 {
-	@LAB_EXPERIMENTS
+	%LAB_EXPERIMENTS
 	{
 
 		TEST01
@@ -27,14 +27,14 @@ EXPERIMENT_DEFINITION:NEEDS[FeatureScience]			// DMagic Orbital Science NEEDS[DM
 			SetupMass = 3.55						// Mass in tons
 			SetupCost = 12800						// Cost added to part
 			UnlockTech = advExploration				// Must have this tech to unlock the experiment.
-			requirements = Greenhouse				// See https://readthedocs.org/projects/kerbalism/downloads/pdf/latest/ page 64 for an explanation of requirements. Ex: requirements = Part:dmscope.
+			requirements = Module:RadioLabExperimentPackage	// See https://github.com/Kerbalism/Kerbalism/wiki/TechGuide-~-PartModules-~-Experiment for requirements. Ex: requirements = Module:RadioLabExperimentPackage.
 			CrewRequirement = Scientist:4			// Type of crew required. Blank is none required. True is any crew. Scientist is any scientist. Scientist:3 is a scientist with 3 stars (level 3).
 		}
 
 	}
 }
 
-@PART[*]:HAS[@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]]:NEEDS[FeatureScience]
+@PART[*]:HAS[@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]]:NEEDS[FeatureScience]:FOR[KerbalismLabExperimentsExpandedContinued]
 {
 //adding the experiment modules. The other parameters get added/overwritten later, thus it's pointless to add them here.
 	MODULE
@@ -60,7 +60,7 @@ EXPERIMENT_DEFINITION:NEEDS[FeatureScience]			// DMagic Orbital Science NEEDS[DM
 	}
 }
 	
-@PART[*]:HAS[@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]]:NEEDS[FeatureScience]:FOR[KerbalismDefault]
+@PART[*]:HAS[@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]]:NEEDS[FeatureScience]:AFTER[KerbalismLabExperimentsExpandedContinued]
 {
 	@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]
 	{
@@ -85,7 +85,7 @@ EXPERIMENT_DEFINITION:NEEDS[FeatureScience]			// DMagic Orbital Science NEEDS[DM
 	
 }
 
-@EXPERIMENT_DEFINITION:HAS[#id[kerbalism_TEST01]]:NEEDS[FeatureScience]:FOR[zzzKerbalismDefault]
+@EXPERIMENT_DEFINITION:HAS[#id[kerbalism_TEST01]]:NEEDS[FeatureScience]:AFTER[KerbalismLabExperimentsExpandedContinued]
 {
 	@baseValue = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/value$
 	@dataScale = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/size$
