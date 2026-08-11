@@ -1,93 +1,101 @@
-EXPERIMENT_DEFINITION:NEEDS[FeatureScience]			// DMagic Orbital Science NEEDS[DMagicOrbitalScience,FeatureScience]. SCANsat NEEDS[SCANsat,FeatureScience], UniversalStorage2 NEEDS[UniversalStorage2,FeatureScience]
-{
-	id = kerbalism_TEST01							// Replace all with actual experiment short name throughout this file (leave the kerbalism_ part)
-	title = TEST01									// Replace all with actual experiment short name throughout this file
-	baseValue = 180
-	scienceCap = 180
-	dataScale = 1
+//==============================================================
+// KLEEC Lab Experiment Template
+//==============================================================
+// How to use:
+// 1. Replace TEST01 with your experiment short name.
+// 2. Replace kerbalism_TEST01 with kerbalism_<YOUR_SHORT_NAME>.
+// 3. Replace #KLEEC_TEST01_title and #KLEEC_TEST01_desc localization keys.
+// 4. Adjust KERBALISM_EXPERIMENT situations.
+// 5. Adjust LAB_EXPERIMENTS values.
+// 6. Recalculate dataScale and data_rate:
+//    dataScale = size / value
+//    data_rate = size / duration / LabDataRateMultiplier
+//    LabDataRateMultiplier is usually 2 for LAB_EXPERIMENTS.
+//==============================================================
 
-  KERBALISM_EXPERIMENT								// Configure what situations you will allow the experiment to be run in.
-	{												// Situation=SrfLanded, SrfSplashed, InSpaceLow, InSpaceHigh, FlyingLow, FlyingHigh, <Situation>@Biomes. BodyNotAllowed=Suns, HomeBody, HomeBodyAndMoons.
-	Situation = InSpaceLow							// BodyAllowed=Planets, Moons. SampleMass = 2052. See ScienceDefs-Kerbalism.cfg for examples.
-	BodyNotAllowed = Suns
-	}
+EXPERIMENT_DEFINITION:NEEDS[FeatureScience]
+{
+    id = kerbalism_TEST01
+    title = #KLEEC_TEST01_title
+
+    // effective baseValue from LAB_EXPERIMENTS value
+    baseValue = 24
+
+    // scienceCap should normally match value
+    scienceCap = 24
+
+    // dataScale = size / value = 22568 / 24
+    dataScale = 940.333333
+
+    KERBALISM_EXPERIMENT
+    {
+        Situation = InSpaceLow
+        BodyNotAllowed = Suns
+    }
 }
 
-@KERBALISM_GROUP_SETTINGS:NEEDS[FeatureScience]
+@KERBALISM_GROUP_SETTINGS:NEEDS[FeatureScience]:AFTER[Kerbalism]
 {
-	@LAB_EXPERIMENTS
-	{
-
-		TEST01
-		{
-			ECCost = 4.62							// Value in game is times 5 (kerbalism cfg does this)
-			size = 22568							// units in MB. Sample slot size is 1 per 1024 units.
-			value = 24								// Default science value
-			duration = 4320000						// 21,600 = 1 day. (x2 for JNSQ)
-			SetupMass = 3.55						// Mass in tons
-			SetupCost = 12800						// Cost added to part
-			UnlockTech = advExploration				// Must have this tech to unlock the experiment.
-			requirements = Greenhouse				// See https://readthedocs.org/projects/kerbalism/downloads/pdf/latest/ page 64 for an explanation of requirements. Ex: requirements = Part:dmscope.
-			CrewRequirement = Scientist:4			// Type of crew required. Blank is none required. True is any crew. Scientist is any scientist. Scientist:3 is a scientist with 3 stars (level 3).
-		}
-
-	}
+    @LAB_EXPERIMENTS
+    {
+        TEST01
+        {
+            ECCost = 4.62
+            size = 22568
+            value = 24
+            duration = 4320000
+            SetupMass = 3.55
+            SetupCost = 12800
+            UnlockTech = advExploration
+            requirements = Greenhouse
+            CrewRequirement = Scientist:4
+        }
+    }
 }
 
-@PART[*]:HAS[@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]]:NEEDS[FeatureScience]
+@PART[*]:HAS[@MODULE[Configure]:HAS[#configureId[LaboratoryExperiments]]]:NEEDS[FeatureScience]:AFTER[Kerbalism]
 {
-//adding the experiment modules. The other parameters get added/overwritten later, thus it's pointless to add them here.
-	MODULE
-	{
-		name = Experiment
-		experiment_id = kerbalism_TEST01
-	}
+    MODULE
+    {
+        name = Experiment
+        experiment_id = kerbalism_TEST01
 
+        ec_rate = 4.62
+        crew_operate = Scientist:4
+        requires = Greenhouse
 
-	@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]
-	{
-		SETUP
-		{
-			name = TEST01
-			desc = TEST01 Desc.						// Add experiment description
-			MODULE
-			{
-				type = Experiment
-				id_field = experiment_id
-				id_value = kerbalism_TEST01
-			}
-		}
-	}
-}
-	
-@PART[*]:HAS[@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]]:NEEDS[FeatureScience]:FOR[KerbalismDefault]
-{
-	@MODULE[Configure]:HAS[#title[Laboratory?Experiments]]
-	{
-		@SETUP:HAS[#name[TEST01]]
-		{
-			%tech = #$../../@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/UnlockTech$
-			%mass = #$../../@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/SetupMass$
-			%cost = #$../../@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/SetupCost$
-		}
-	}
-	
-	@MODULE[Experiment]:HAS[#experiment_id[kerbalism_TEST01]]
-	{
-		%ec_rate = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/ECCost$
-		%crew_operate = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/CrewRequirement$
-		%requires = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/requirements$
-		%data_rate = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/size$
-		@data_rate /= #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/duration$
-		@data_rate /= #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/LabDataRateMultiplier$
-		// %resources = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/SALINE/ResourceRates$
-	}
-	
+        // data_rate = size / duration / LabDataRateMultiplier
+        // 22568 / 4320000 / 2
+        data_rate = 0.002612
+    }
+
+    @MODULE[Configure]:HAS[#configureId[LaboratoryExperiments]]
+    {
+        SETUP
+        {
+            name = TEST01
+            title = #KLEEC_TEST01_title
+            desc = #KLEEC_TEST01_desc
+
+            tech = advExploration
+            mass = 3.55
+            cost = 12800
+
+            MODULE
+            {
+                type = Experiment
+                id_field = experiment_id
+                id_value = kerbalism_TEST01
+            }
+        }
+    }
 }
 
-@EXPERIMENT_DEFINITION:HAS[#id[kerbalism_TEST01]]:NEEDS[FeatureScience]:FOR[zzzKerbalismDefault]
+Localization
 {
-	@baseValue = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/value$
-	@dataScale = #$@KERBALISM_GROUP_SETTINGS/LAB_EXPERIMENTS/TEST01/size$
-	@dataScale /= #$baseValue$
+    en-us
+    {
+        #KLEEC_TEST01_title = TEST01
+        #KLEEC_TEST01_desc = TEST01 experiment description. Replace this with the actual experiment description.
+    }
 }
